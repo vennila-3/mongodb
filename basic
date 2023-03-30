@@ -1,0 +1,47 @@
+sql vs mongodb:
+   SQL databases are considered relational databases.
+   They store related data in separate tables.
+   When data is needed, it is queried from multiple tables to join the data back together.
+MONGDOB:
+  MongoDB is a document database which is often referred to as a non-relational database. 
+  This does not mean that relational data cannot be stored in document databases.
+  It means that relational data is stored differently.A better way to refer to it is as a non-tabular database.
+  
+MONGODB:
+   def:
+   Non relational database
+  MongoDB is a cross-platform,
+  document oriented database that provides,
+  high performance, 
+  It does not support join operation.
+  high availability,
+   easy scalability. 
+   MongoDB works on concept of collection and document
+   
+---* Databases, collections, documents are important parts of MongoDB without them you are not able to store data on the MongoDB server.*----
+       A Database contains a collection,
+       a collection contains documents and 
+       the documents contain data--- they are related to each other. 
+     
+DATABASE:
+       In MongoDB, a database contains the collections of documents. One can create multiple databases on the MongoDB server.  
+COLLECTION: 
+       Collection is a bunch of MongoDB documents. It is similar to tables in RDBMS.
+       Collections are just like tables in relational databases, they also store data, but in the form of documents.
+       A single database is allowed to store multiple collections.  
+DOCUMENT:
+       like columns in the relation database
+      In MongoDB, the data records are stored as BSON documents. Here, BSON stands for binary representation of JSON documents,although BSON contains more data types as compared to JSON. 
+      The document is created using field-value pairs or key-value pairs and the value of the field can be of any BSON type. 
+      The maximum size of the BSON document is 16MB.
+      A single document may contain duplicate fields.
+stores all the information of a computer in a single document called Computer and not in distinct relational structures like CPU, RAM, Hard disk, etc.
+
+
+Where do we use MongoDB?
+
+       Big Data
+       Unstable Schema:Adding a new column in RDBMS is hard whereas MongoDB is schema-less. Adding a new field does not effect old documents and will be very easy.
+       
+
+
