@@ -1,0 +1,9 @@
+previous wwe want to create and insert collection means syntax is
+      db.employee.insertMany() or insertOne()
+      
+      
+ we can also create like this     
+      db.createCollection('user')
+        { ok: 1 }
+      db.user.find()  // till now we dont insert any value so it is empty
+      db.user.insertOne({name:"venni"})
