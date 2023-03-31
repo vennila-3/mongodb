@@ -1,3 +1,6 @@
+
+it doesnot follow any scehema 
+like mysql we enter only what we want in create table only we can insert but mongo we dont have any restrictions
 ---------------**       show dbs  **--------------------------used to show databases in mysql show databases
 test> show dbs
 admin    40.00 KiB
@@ -5,22 +8,91 @@ config   60.00 KiB
 library  72.00 KiB
 local    72.00 KiB
 
+
 ---------------**       use shp  **-------------------------- create and use database in mysql create database shop & use shop
 test> use shp
 switched to db shp           // if database are not mongodb server create database and use it doesnot have any value it only create and use
 shp>
+
  
 ---------------**     db.product.insertOne()  **-------------------------- db --shp database  product --collection insertOne --method of insert one value
-db.product .insertOne({name:"vennila",age:18})     // insert the product collection into shp database
+db.product .insertOne({name:"vennila",age:18})     // insert the product collection into shp database  // if we insert two or more it only consider 1 document is inserted
 {
   acknowledged: true,
   insertedId: ObjectId("64265503cb29d394867e7751")
 }
 
----------------**     db.product.findOne()  **-------------------------- like select operation it show the product collection value
+
+---------------**     db.product.insertMany()  **-------------------------- 
+  db.employee.insertMany([
+... {name:"vennila",details:{id:234,salary:12345}}
+... ,{name:"nila",details:{id:56789,salary:45678}}
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("642677d6e2428700a353162e"),
+    '1': ObjectId("642677d6e2428700a353162f")
+  }
+}
+
+     ---------**     db.product.findOne()  **----------------like select operation it show the product collection value
 db.product.findOne()     // we can use find() also
 { _id: ObjectId("64265503cb29d394867e7751"), name: 'vennila', age: 18 }
 shp>
+
+       
+       --------**     db.product.find()  **-------- like select * operation it show the product collection value
+
+db.employee.find()   // show all details
+[
+  {
+    _id: ObjectId("642677d6e2428700a353162e"),
+    name: 'vennila',
+    details: { id: 234, salary: 12345 }
+  },
+  {
+    _id: ObjectId("642677d6e2428700a353162f"),
+    name: 'nila',
+    details: { id: 56789, salary: 45678 }
+  }
+]
+
+        ------**     db.product.findOne(argument)  **---- if we want to get paticular 1 document
+
+office> db.employee.findOne({name:"nila"})
+{
+  _id: ObjectId("642677d6e2428700a353162f"),
+  name: 'nila',
+  details: { id: 56789, salary: 45678 }
+}
+
+     ------**     db.product.find(argument)  **----- if we want to get document where our condition satisify 2 or more value if satisfie
+
+db.employee.find({"details.id":234})   // it will return employee collection where employee's id is 234
+
+
+
+     ------**     UPDATE    updateOne() updateMany() **----
+I)
+    db.employee.updateOne()   // we should give an argument
+    MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 0 (Collection.updateOne)
+II)
+     b.employee.updateOne({name:"nila"},{$set:{"details.id":789}}){
+     acknowledged: true,
+     insertedId: null, // we insert one update only 
+     matchedCount: 1, //name:nila is matched in collection is 1 
+     modifiedCount: 1,  //update 
+     upsertedCount: 0}  now value is changed 
+III)
+      db.employee.updateMany({"details.id":234},{$set:{"details.salary":2345}}) // if we want to modify above one means we can use Many
+      
+       ------**     DELETE     deleteOne() deleteMany() **----
+I)
+     db.employee.deleteOne({name:"nila"})  // it will delete only one value
+II)
+    db.employee.deleteMany({"details.id":234})
+    
 
 ---------------**     insert collection as json format  **-------------------------- 
 
@@ -45,6 +117,11 @@ db.product.find()   /// if we give findOne it will return first object only
     field: { dep: 'ece', clg: 'sece', sec: 'c' }
   }
   
-  ---------------**    CRUD  **-------------------------- 
-
+  
+  
+  ---------------**    CRUD OPERATIONS  **-------------------------- 
+c-create      create db insertOne () ,insertMany()
+r-read        findOne(),find(),findOne(argument) find(arguument)
+u-update      updateOne() updateMany()
+d-delete      deleteOne(),deleteMany()
   
