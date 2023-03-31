@@ -7,3 +7,17 @@ previous wwe want to create and insert collection means syntax is
         { ok: 1 }
       db.user.find()  // till now we dont insert any value so it is empty
       db.user.insertOne({name:"venni"})
+      
+      
+  We can use  mongodb composs instead of mongodb shell
+      it is a graphical interface
+      we can view all databases and insert,delete,update
+      it is used for present and know about the project analyse also
+      
+   MONGODB DRIVER:
+         drivers use for connect application and mongodb  (act as a bridge)
+  CURSOR:
+          
+         
+   FINDING DATA:
+          Aggegrative functions 
