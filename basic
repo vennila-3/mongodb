@@ -45,3 +45,6 @@ Where do we use MongoDB?
        
 
 
+CURSOR:
+
+   cursor is a pointer, and using this pointer we can access the document
