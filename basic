@@ -43,8 +43,12 @@ Where do we use MongoDB?
        Big Data
        Unstable Schema:Adding a new column in RDBMS is hard whereas MongoDB is schema-less. Adding a new field does not effect old documents and will be very easy.
        
-
-
 CURSOR:
 
    cursor is a pointer, and using this pointer we can access the document
+   
+   
+ --------**** mongodb collection are stored as document json   **----------------------
+          json is a sturcture of storing value      --- key value pair   mysql we create multiple table and join but mongo we can create document inside single json collection 
+          after finishning json type and it stored as bson because binary datas is faster to accesss in computer
+          
