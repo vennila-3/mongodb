@@ -14,10 +14,168 @@ previous wwe want to create and insert collection means syntax is
       we can view all databases and insert,delete,update
       it is used for present and know about the project analyse also
       
-   MONGODB DRIVER:
+MONGODB DRIVER:
          drivers use for connect application and mongodb  (act as a bridge)
-  CURSOR:
+CURSOR:
+          if we insert 1000 and 1000 of datas we use find() method it will return only 20
+          why  this problem occur means for security and it occur some problem we can rectify the problem using cursor[]
           
-         
-   FINDING DATA:
-          Aggegrative functions 
+         **** db.user.find().toArray()  // return 1000 lines of code***
+        
+ MONGO SHEll:  
+        we can write js code also
+        for each we can use      //forEach()
+             db.user.find().forEach((data)=>{print(data)})  // it will take and print one by one loop pani loop pani give an value so it take data less by less
+           
+      toArray vs forEach()
+            forEach() --loop pani loop pani give an value so it take data less by less
+            toArray() ---it  give  all data  at a time so it takes memory more at a time 
+          **forEach is better than toArray()***
+          
+PROJECTION:
+         in a document we have multiple datas we want paticular data from all document in collection in this time we use projection
+         office> db.emp.insertMany([
+          ... {name:"vennila",id:123},
+          ... {name:"nilka",id:456},
+          ... {name:"ve",id:56},
+          ... {name:"nil",id:78},
+          ... {name:"bnm",id:90}
+          ... ])
+ ****** office> db.emp.find({},{name:1})   /// it will return only name id also come default
+        [
+        { _id: ObjectId("642676a0e2428700a353162d"), name: 'venn' },
+        { _id: ObjectId("6426961be2428700a3531632"), name: 'vennila' },
+        { _id: ObjectId("6426961be2428700a3531633"), name: 'nilka' },
+       { _id: ObjectId("6426961be2428700a3531634"), name: 've' },
+       { _id: ObjectId("6426961be2428700a3531635"), name: 'nil' },
+      { _id: ObjectId("6426961be2428700a3531636"), name: 'bnm' }
+      ]
+  *****************db.emp.find({},{name:1,_id:0})***************  // above query it will retuen id also  we dont want id so use _id:0 so now answer is
+       { name: 'venn' },
+       { name: 'vennila' },
+       { name: 'nilka' },
+       { name: 've' },
+       { name: 'nil' },
+       { name: 'bnm' }
+  ***************we can include default value in projection  *******
+       office> db.emp.find({},{name:1,_id:0,college:"sece"})   //  college key is not present in collection projection will create 
+       { name: 'venn', college: 'sece' },
+       { name: 'vennila', college: 'sece' },
+       { name: 'nilka', college: 'sece' },
+       { name: 've', college: 'sece' },
+       { name: 'nil', college: 'sece' },
+       { name: 'bnm', college: 'sece' }
+   ***************we can fix limit also ************* // if we  want only 2 name from emp means use limit like mysql
+           office> db.emp.find({},{name:1,_id:0,college:"sece"}).limit(2)   //print 1st 2 names
+           { name: 'venn', college: 'sece' },
+           { name: 'vennila', college: 'sece' }
+   ***************we can skip**************
+        db.emp.find({},{name:1,_id:0,college:"sece"}).skip(3)  // skip first 3 and start to print from 4 th name to last 
+        { name: 've', college: 'sece' },
+        { name: 'nil', college: 'sece' },
+        { name: 'bnm', college: 'sece' }
+       
+    ***************we can sort************** // like mysql asc desc
+        ASCENDING ORDER 
+            db.emp.find({},{name:1,_id:0,college:"sece"}).sort({name:1})   /// gives name as ascending name:1 1 means ascending
+            { name: 'bnm', college: 'sece' },
+            { name: 'nil', college: 'sece' },
+            { name: 'nilka', college: 'sece' },
+            { name: 've', college: 'sece' },
+            { name: 'venn', college: 'sece' },
+            { name: 'vennila', college: 'sece' }
+        DESCENDING ORDER:
+            db.emp.find({},{name:1,_id:0,college:"sece"}).sort({name:-1})   //-1 means descending 
+            { name: 'vennila', college: 'sece' },
+            { name: 'venn', college: 'sece' },
+            { name: 've', college: 'sece' },
+            { name: 'nilka', college: 'sece' },
+            { name: 'nil', college: 'sece' },
+            { name: 'bnm', college: 'sece' }
+ FINDING DATA:
+          ***query operators***
+              1)comparison operator
+              2)logical operator
+              3)Evaluation operator
+              
+ 1)MongoDBcomparison operator: 
+        i)$eq	It is used to match the values of the fields that are equal to a specified value.
+               db.emp.find({name:{$eq:"ve"}},{name:1,_id:0}) // if we want name only we use so we write option
+               { name: 've' }
+               
+        ii)$ne	It is used to match all values of the field that are not equal to a specified value.
+              db.emp.find({name:{$ne:"ve"}},{name:1,_id:0})
+              { name: 'venn' },
+              { name: 'vennila' },
+              { name: 'nilka' },
+              { name: 'nil' },
+              { name: 'bnm' }
+              
+         iii)$gt	It is used to match values of the fields that are greater than a specified value.
+               db.emp.find({id:{$gt:70}},{name:1,_id:0,id:1})
+               { name: 'venn', id: 1234 },
+               { name: 'vennila', id: 123 },
+               { name: 'nilka', id: 456 },
+               { name: 'nil', id: 78 },
+               { name: 'bnm', id: 90 }
+               
+         iv)$gte	 It is used to match values of the fields that are greater than equal to the specified value.
+               db.emp.find({id:{$gte:70}},{name:1,_id:0,id:1}) // like gt but it will print where id is 70 also
+               
+         v)$lt	It is used to match values of the fields that are less than a specified value.
+               db.emp.find({id:{$lt:90}},{name:1,_id:0,id:1})
+               { name: 've', id: 56 }, { name: 'nil', id: 78 } ]
+               
+         vi)$lte	It is used to match values of the fields that are less than equals to the specified value
+              db.emp.find({id:{$lte:90}},{name:1,_id:0,id:1})  // it will add where id=90 also
+              
+         vii)$in	It is used to match any of the values specified in an array
+             office> db.emp.find({id:{$in:[78,90,123]}},{name:1,_id:0,id:1})
+             { name: 'vennila', id: 123 },
+             { name: 'nil', id: 78 },
+             { name: 'bnm', id: 90 }
+             
+         viii)$nin	It is used to match none of the values specified in an array.
+            db.emp.find({id:{$nin:[78,90,123]}},{name:1,_id:0,id:1})
+            { name: 'venn', id: 1234 },
+            { name: 'nilka', id: 456 },
+            { name: 've', id: 56 }
+            
+            
+  2)MongoDB – Logical Query Operators
+     I) $and	It is used to join query clauses with a logical AND and return all documents that match the given conditions of both clauses.
+          db.emp.find({$and:[{id:{$gt:70}},{name:{$eq:"bnm"}}]},{name:1,_id:0,id:1})
+          { name: 'bnm', id: 90 } ] 
+          
+     II)$or 	It is used to join query clauses with a logical OR and return all documents that match the given conditions of either clause.
+            db.emp.find({$or:[{id:{$gt:70}},{name:{$eq:"bnm"}}]},{name:1,_id:0,id:1}
+            { name: 'venn', id: 1234 },
+            { name: 'vennila', id: 123 },
+            { name: 'nilka', id: 456 },     // here id>70 so print 
+            { name: 'nil', id: 78 },
+            { name: 'bnm', id: 90 }  // name=bnm  both are print
+            
+    III)$not	It is used to invert the effect of the query expressions and return documents that does not match the query expression.
+             db.emp.find({id:{$not:{$gt:90}}},{name:1,_id:0,id:1})
+             { name: 've', id: 56 },
+             { name: 'nil', id: 78 },
+             { name: 'bnm', id: 90 }
+     IV)$nor	It is used to join query clauses with a logical NOR and return all documents that fail to match both clauses.
+              db.emp.find({$nor:[{id:{$gt:70}},{name:{$eq:"bnm"}}]},{name:1,_id:0,id:1})    
+               { name: 've', id: 56 } ]                //or opposite
+
+3)EVALUATION OPERATOR:
+    I) $regex        regular expression  if we want starting letter v names means we can use
+       db.emp.find({name:{$regex:"^v",$options:"i"}},{name:1,id:1,_id:0})  //$options it make case in sensitive both small v caps v
+       { name: 'venn', id: 1234 },
+       { name: 'vennila', id: 123 },
+       { name: 've', id: 56 }
+       
+    II)$where   // it doesnot work in nested document
+    
+           office> db.emp.find({$where:function(){return this.name=="vennila"}})   // we can use db.emp.find({name:"vennila"}) both are return same value
+           {
+           _id: ObjectId("6426961be2428700a3531632"),
+            name: 'vennila',
+            id: 123
+          
