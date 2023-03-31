@@ -1,0 +1,50 @@
+---------------**       show dbs  **--------------------------used to show databases in mysql show databases
+test> show dbs
+admin    40.00 KiB
+config   60.00 KiB
+library  72.00 KiB
+local    72.00 KiB
+
+---------------**       use shp  **-------------------------- create and use database in mysql create database shop & use shop
+test> use shp
+switched to db shp           // if database are not mongodb server create database and use it doesnot have any value it only create and use
+shp>
+ 
+---------------**     db.product.insertOne()  **-------------------------- db --shp database  product --collection insertOne --method of insert one value
+db.product .insertOne({name:"vennila",age:18})     // insert the product collection into shp database
+{
+  acknowledged: true,
+  insertedId: ObjectId("64265503cb29d394867e7751")
+}
+
+---------------**     db.product.findOne()  **-------------------------- like select operation it show the product collection value
+db.product.findOne()     // we can use find() also
+{ _id: ObjectId("64265503cb29d394867e7751"), name: 'vennila', age: 18 }
+shp>
+
+---------------**     insert collection as json format  **-------------------------- 
+
+db.product.insertOne({name:"vennila",age:18
+... ,field:{dep:"ece",clg:"sece",sec:"c"}})  // we include another object inside collection called json type in my sql we wantr to create  another table and join that
+{
+  acknowledged: true,
+  insertedId: ObjectId("642658eae2428700a353162c")
+}
+shp>
+db.product.find()   /// if we give findOne it will return first object only
+[
+  {
+    _id: ObjectId("64265503cb29d394867e7751"),
+    name: 'vennila',
+    age: 18
+  },
+   {
+    _id: ObjectId("642658eae2428700a353162c"),
+    name: 'vennila',
+    age: 18,
+    field: { dep: 'ece', clg: 'sece', sec: 'c' }
+  }
+  
+  ---------------**    CRUD  **-------------------------- 
+
+  
