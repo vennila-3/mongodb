@@ -1,0 +1,14 @@
+DATA TYPES:
+    1)string       9)binary data -101100
+    2)int          10)date -now date()
+    3)double       11)decimal
+    4)Boolean      12)Min/ Max key
+    5)NULL
+    6)Array
+    7)Object
+    8)undefined
+  
+QUERY:
+    MongoDB Query is a way to get the data from the MongoDB database.
+    pretty()” query method is using for only better readability of Document Database.(It’s not necessary) 
+
