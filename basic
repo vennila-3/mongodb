@@ -2,10 +2,13 @@ sql vs mongodb:
    SQL databases are considered relational databases.
    They store related data in separate tables.
    When data is needed, it is queried from multiple tables to join the data back together.
+   it follow normalization  ---- it means datas are split into smalll smalll because work efficientn --  split and join  it also called schema.
 MONGDOB:
+  it isa no sql  database ---sql opposite.
   MongoDB is a document database which is often referred to as a non-relational database. 
   This does not mean that relational data cannot be stored in document databases.
   It means that relational data is stored differently.A better way to refer to it is as a non-tabular database.
+  schema is not neccesay
   
 MONGODB:
    def:
