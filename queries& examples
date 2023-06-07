@@ -1,29 +1,36 @@
 
 it doesnot follow any scehema 
 like mysql we enter only what we want in create table only we can insert but mongo we dont have any restrictions
----------------**       show dbs  **--------------------------used to show databases in mysql show databases
+      ---------------**       show dbs  **--------------------------used to show databases in mysql show databases
 test> show dbs
 admin    40.00 KiB
 config   60.00 KiB
 library  72.00 KiB
-local    72.00 KiB
+local    72.00 KiB    
 
 
----------------**       use shp  **-------------------------- create and use database in mysql create database shop & use shop
+          ---------------**DATABASE **-------------------------- create and use database in mysql create database shop & use shop
 test> use shp
-switched to db shp           // if database are not mongodb server create database and use it doesnot have any value it only create and use
+switched to db shp           // if database are not in mongodb ,server doesnot create database until we insert the collection and values inside the database
 shp>
 
  
----------------**     db.product.insertOne()  **-------------------------- db --shp database  product --collection insertOne --method of insert one value
+         ---------------**COLLECTION**--------------------------
+db --shp database  product --collection insertOne --method of insert one value
 db.product .insertOne({name:"vennila",age:18})     // insert the product collection into shp database  // if we insert two or more it only consider 1 document is inserted
 {
   acknowledged: true,
   insertedId: ObjectId("64265503cb29d394867e7751")
 }
-
-
----------------**     db.product.insertMany()  **-------------------------- 
+ ---example---
+ db.nila.insertOne({name:"vennila"},{"hobbies":{
+... "game":"no",
+... "tv":"yes"}});
+{
+  acknowledged: true,
+  insertedId: ObjectId("6480203b2dff2c57c7b16523")
+}
+         ---------------**     db.product.insertMany()  **-------------------------- 
   db.employee.insertMany([
 ... {name:"vennila",details:{id:234,salary:12345}}
 ... ,{name:"nila",details:{id:56789,salary:45678}}
@@ -36,8 +43,8 @@ db.product .insertOne({name:"vennila",age:18})     // insert the product collect
   }
 }
 
-     ---------**     db.product.findOne()  **----------------like select operation it show the product collection value
-db.product.findOne()     // we can use find() also
+         ---------**     db.product.findOne()  **----------------like select operation it show the product collection value
+db.product.findOne()     // we can use find() also findOne() return first document 
 { _id: ObjectId("64265503cb29d394867e7751"), name: 'vennila', age: 18 }
 shp>
 
@@ -72,21 +79,57 @@ office> db.employee.findOne({name:"nila"})
 db.employee.find({"details.id":234})   // it will return employee collection where employee's id is 234
 
 
-
-     ------**     UPDATE    updateOne() updateMany() **----
+     -----------------**  UPDATE    updateOne() updateMany() **------------------
 I)
     db.employee.updateOne()   // we should give an argument
     MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 0 (Collection.updateOne)
 II)
-     b.employee.updateOne({name:"nila"},{$set:{"details.id":789}}){
-     acknowledged: true,
-     insertedId: null, // we insert one update only 
-     matchedCount: 1, //name:nila is matched in collection is 1 
-     modifiedCount: 1,  //update 
-     upsertedCount: 0}  now value is changed 
-III)
-      db.employee.updateMany({"details.id":234},{$set:{"details.salary":2345}}) // if we want to modify above one means we can use Many
-      
+db.nila.updateOne({name:"vennila"},{$set:{"college.name":"psg"}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+nila> db.nila.find({name:"vennila"});
+[
+  {
+    _id: ObjectId("648026fc09a7c77d97252b66"),
+    name: 'vennila',
+    college: { name: 'psg' }         /// it will change first argument only not for all vennila only for first vennila
+  },
+  {
+    _id: ObjectId("6480275f09a7c77d97252b67"),
+    name: 'vennila',
+    college: { name: 'sece', year: 3, dep: 'ece' }
+  }
+] 
+III)    
+ db.nila.updateMany({name:"vennila"},{$set:{"college.name":"psg"}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+nila> db.nila.find({name:"vennila"});
+[
+  {
+    _id: ObjectId("648026fc09a7c77d97252b66"),
+    name: 'vennila',
+    college: { name: 'psg' }
+  },
+  {
+    _id: ObjectId("6480275f09a7c77d97252b67"),
+    name: 'vennila',
+    college: { name: 'psg', year: 4, dep: 'eee' }
+  }
+]
+
+
+
        ------**     DELETE     deleteOne() deleteMany() **----
 I)
      db.employee.deleteOne({name:"nila"})  // it will delete only one value
@@ -94,16 +137,17 @@ II)
     db.employee.deleteMany({"details.id":234})
     
 
----------------**     insert collection as json format  **-------------------------- 
-
+      ---------------**(CREATE)   insert collection as json format  **-------------------------- 
+   I)
 db.product.insertOne({name:"vennila",age:18
 ... ,field:{dep:"ece",clg:"sece",sec:"c"}})  // we include another object inside collection called json type in my sql we wantr to create  another table and join that
 {
   acknowledged: true,
   insertedId: ObjectId("642658eae2428700a353162c")
 }
+
 shp>
-db.product.find()   /// if we give findOne it will return first object only
+db.product.find()   /// if wde give findOne it will return first object only
 [
   {
     _id: ObjectId("64265503cb29d394867e7751"),
@@ -117,9 +161,90 @@ db.product.find()   /// if we give findOne it will return first object only
     field: { dep: 'ece', clg: 'sece', sec: 'c' }
   }
   
+   II)
+ 
+office> db.nila.insertMany([{ name: "ven",rollno:253,college:
+... {name:"sece",de:"ece",fees:123456}},
+... {office:"no",work:"no",why:"no study"},
+... {whattodo:"study well",and:"dont waste time"}
+... ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("648023d12dff2c57c7b16527"),
+    '1': ObjectId("648023d12dff2c57c7b16528"),
+    '2': ObjectId("648023d12dff2c57c7b16529")
+  }
+}
+office> db.nila.find();
+[
+  {
+    _id: ObjectId("648023d12dff2c57c7b16527"),
+    name: 'ven',
+    rollno: 253,
+    college: { name: 'sece', de: 'ece', fees: 123456 }
+  },
+  {
+    _id: ObjectId("648023d12dff2c57c7b16528"),
+    office: 'no',
+    work: 'no',
+    why: 'no study'
+  },
+  {
+    _id: ObjectId("648023d12dff2c57c7b16529"),
+    whattodo: 'study well',
+    and: 'dont waste time'
+  }
+]
   
   
-  ---------------**    CRUD OPERATIONS  **-------------------------- 
+        ----------------** READ---------------------------------
+ 1)find()
+ 2)findOne()
+        (I)
+db.nila.findOne({name:"vennila"});
+{
+  _id: ObjectId("6480251e2dff2c57c7b1652a"),
+  name: 'vennila',
+  rollno: 253,
+  college: 'sece'
+}
+
+      (II)
+office> db.nila.find({name:"vennila"});
+[
+  {
+    _id: ObjectId("6480251e2dff2c57c7b1652a"),
+    name: 'vennila',
+    rollno: 253,
+    college: 'sece'
+  },
+  {
+    _id: ObjectId("648025302dff2c57c7b1652d"),
+    name: 'vennila',
+    price: 1234,
+    brand: { version: 12.3, type: 'ctype' }
+  },
+  { _id: ObjectId("6480256b2dff2c57c7b1652e"), name: 'vennila' }
+]
+   
+    III)nested document read
+ if we want to take brand version is equal to 12.3
+     db.nila.find({"college.name":"sece"});
+[
+  {
+    _id: ObjectId("6480275f09a7c77d97252b67"),
+    name: 'vennila',
+    college: { name: 'sece', year: 3, dep: 'ece' }
+  },
+  {
+    _id: ObjectId("6480275f09a7c77d97252b68"),
+    name: 'sowndarya',
+    college: { name: 'sece', year: 3, dep: 'ece' }
+  }
+]
+ 
+        ---------------**    CRUD OPERATIONS  **-------------------------- 
 c-create      create db insertOne () ,insertMany()
 r-read        findOne(),find(),findOne(argument) find(arguument)
 u-update      updateOne() updateMany()
