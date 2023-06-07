@@ -2,8 +2,8 @@ previous wwe want to create and insert collection means syntax is
       db.employee.insertMany() or insertOne()
       
       
- we can also create like this     
-      db.createCollection('user')
+ we can also create like this  without insert any values   
+      db.createCollection('user') 
         { ok: 1 }
       db.user.find()  // till now we dont insert any value so it is empty
       db.user.insertOne({name:"venni"})
@@ -16,16 +16,18 @@ previous wwe want to create and insert collection means syntax is
       
 MONGODB DRIVER:
          drivers use for connect application and mongodb  (act as a bridge)
-CURSOR:
+CURSOR:[]
           if we insert 1000 and 1000 of datas we use find() method it will return only 20
           why  this problem occur means for security and it occur some problem we can rectify the problem using cursor[]
-          
+          cursor works---send small small data to perform to execute
+          cursor have some methods to show all datas
          **** db.user.find().toArray()  // return 1000 lines of code***
         
  MONGO SHEll:  
-        we can write js code also
+       ** we can write js code also**
+     FOR EACH:
         for each we can use      //forEach()
-             db.user.find().forEach((data)=>{print(data)})  // it will take and print one by one loop pani loop pani give an value so it take data less by less
+           db.user.find().forEach((data)=>{print(data)})  // it will take and print one by one loop pani loop pani give an value so it take data less by less
            
       toArray vs forEach()
             forEach() --loop pani loop pani give an value so it take data less by less
@@ -34,13 +36,17 @@ CURSOR:
           
 PROJECTION:
          in a document we have multiple datas we want paticular data from all document in collection in this time we use projection
-         office> db.emp.insertMany([
-          ... {name:"vennila",id:123},
-          ... {name:"nilka",id:456},
-          ... {name:"ve",id:56},
-          ... {name:"nil",id:78},
-          ... {name:"bnm",id:90}
-          ... ])
+    1)in document what datas we want     db.emp.find({},{name:1})
+    2)limit             db.emp.find({},{name:1}).limit(2) first 2
+    3)skip              db.emp.find({},{name:1}).skip(2); omit first 2
+    4)Sort (asc desc)   db.emp.find().sort({id:1});asc db.emp.find().sort({id:11});desc
+        office> db.emp.insertMany([
+         {name:"vennila",id:123},
+          {name:"nilka",id:456},
+          {name:"ve",id:56},
+          {name:"nil",id:78},
+          {name:"bnm",id:90}
+          ])
  ****** office> db.emp.find({},{name:1})   /// it will return only name id also come default
         [
         { _id: ObjectId("642676a0e2428700a353162d"), name: 'venn' },
@@ -50,13 +56,15 @@ PROJECTION:
        { _id: ObjectId("6426961be2428700a3531635"), name: 'nil' },
       { _id: ObjectId("6426961be2428700a3531636"), name: 'bnm' }
       ]
-  *****************db.emp.find({},{name:1,_id:0})***************  // above query it will retuen id also  we dont want id so use _id:0 so now answer is
-       { name: 'venn' },
-       { name: 'vennila' },
-       { name: 'nilka' },
-       { name: 've' },
-       { name: 'nil' },
-       { name: 'bnm' }
+  *****************db.emp.find({},{_id:0})***************  // above query it will retuen id also  we dont want id so use _id:0 so now answer is
+       db.emp.find({},{ _id:0});
+[
+  { name: 'vennila', id: 123 },
+  { name: 'nilka', id: 456 },
+  { name: 've', id: 56 },
+  { name: 'nil', id: 78 },
+  { name: 'bnm', id: 90 }
+]
   ***************we can include default value in projection  *******
        office> db.emp.find({},{name:1,_id:0,college:"sece"})   //  college key is not present in collection projection will create 
        { name: 'venn', college: 'sece' },
@@ -92,16 +100,18 @@ PROJECTION:
             { name: 'nilka', college: 'sece' },
             { name: 'nil', college: 'sece' },
             { name: 'bnm', college: 'sece' }
+            
+      --------------------**query operators**----------------------------      
  FINDING DATA:
           ***query operators***
               1)comparison operator
               2)logical operator
               3)Evaluation operator
               
- 1)MongoDBcomparison operator: 
+ 1)MongoDB  comparison operator: 
         i)$eq	It is used to match the values of the fields that are equal to a specified value.
                db.emp.find({name:{$eq:"ve"}},{name:1,_id:0}) // if we want name only we use so we write option
-               { name: 've' }
+               db.emp.find({name:"ve"}); db.emp.find({name:{$eq:"ve"}});   //both are name
                
         ii)$ne	It is used to match all values of the field that are not equal to a specified value.
               db.emp.find({name:{$ne:"ve"}},{name:1,_id:0})
@@ -178,4 +188,6 @@ PROJECTION:
            _id: ObjectId("6426961be2428700a3531632"),
             name: 'vennila',
             id: 123
-          
+       III)$text  --performs a text search on the content
+       
+       db.emp.find({$text:{$search:"venni"}});
