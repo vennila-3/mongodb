@@ -78,24 +78,74 @@ I)
     db.employee.updateOne()   // we should give an argument
     MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 0 (Collection.updateOne)
 II)
-     b.employee.updateOne({name:"nila"},{$set:{"details.id":789}}){
-     acknowledged: true,
-     insertedId: null, // we insert one update only 
-     matchedCount: 1, //name:nila is matched in collection is 1 
-     modifiedCount: 1,  //update 
-     upsertedCount: 0}  now value is changed 
-III)
-      db.employee.updateMany({"details.id":234},{$set:{"details.salary":2345}}) // if we want to modify above one means we can use Many
+ db.nila.updateOne({name:"vennila"},{$set:{"college.name":"psg"}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+nila> db.nila.find({name:"vennila"});
+[
+  {
+    _id: ObjectId("648026fc09a7c77d97252b66"),
+    name: 'vennila',
+    college: { name: 'psg' }
+  },
+  {
+    _id: ObjectId("6480275f09a7c77d97252b67"),
+    name: 'vennila',
+    college: { name: 'sece', year: 3, dep: 'ece' }
+  }
+]
+           (III)
+db.nila.updateMany({name:"vennila"},{$set:{"college.name":"psg"}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+nila> db.nila.find({name:"vennila"});
+[
+  {
+    _id: ObjectId("648026fc09a7c77d97252b66"),
+    name: 'vennila',
+    college: { name: 'psg' }
+  },
+  {
+    _id: ObjectId("6480275f09a7c77d97252b67"),
+    name: 'vennila',
+    college: { name: 'psg', year: 3, dep: 'ece' }
+  }
+]
+
       
        ------**     DELETE     deleteOne() deleteMany() **----
 I)
-     db.employee.deleteOne({name:"nila"})  // it will delete only one value
+db.nila.deleteOne({"college.name":"sece"});
+{ acknowledged: true, deletedCount: 1 }
+nila> db.nila.find();
+[
+  {
+    _id: ObjectId("648026fc09a7c77d97252b66"),
+    name: 'vennila',
+    college: { name: 'psg' }
+  },
+  {
+    _id: ObjectId("6480275f09a7c77d97252b67"),
+    name: 'vennila',
+    college: { name: 'psg', year: 3, dep: 'ece' }
+  }
+]     
 II)
     db.employee.deleteMany({"details.id":234})
     
 
 ---------------**     insert collection as json format  **-------------------------- 
-
+     (I)
 db.product.insertOne({name:"vennila",age:18
 ... ,field:{dep:"ece",clg:"sece",sec:"c"}})  // we include another object inside collection called json type in my sql we wantr to create  another table and join that
 {
@@ -117,7 +167,32 @@ db.product.find()   /// if we give findOne it will return first object only
     field: { dep: 'ece', clg: 'sece', sec: 'c' }
   }
   
-  
+      (II)
+ db.nila.insertMany([{
+... name:"vennila",college:{name:"sece",year:3,dep:"ece"}},
+...
+... {name:"sowndarya",college:{name:"sece",year:3,dep:"ece"}}
+... ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6480275f09a7c77d97252b67"),
+    '1': ObjectId("6480275f09a7c77d97252b68")
+  }
+}
+nila> db.nila.find({"college.name":"sece"});
+[
+  {
+    _id: ObjectId("6480275f09a7c77d97252b67"),
+    name: 'vennila',
+    college: { name: 'sece', year: 3, dep: 'ece' }
+  },
+  {
+    _id: ObjectId("6480275f09a7c77d97252b68"),
+    name: 'sowndarya',
+    college: { name: 'sece', year: 3, dep: 'ece' }
+  }
+]
   
   ---------------**    CRUD OPERATIONS  **-------------------------- 
 c-create      create db insertOne () ,insertMany()
