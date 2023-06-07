@@ -1,3 +1,13 @@
+DATABASE:
+    which is used for storing the data
+    it is divided into three types:
+       1)RDBMS(relational database management)
+       2)OLAP(online analytical processing)
+       3)NOSQL
+NOSQL:
+     used for store big data
+     real time web application
+
 sql :
    SQL databases are considered relational databases.
    They store related data in separate tables.
@@ -11,7 +21,7 @@ MONGDOB:
   schema is not neccesay
   
 MONGODB:
-   def:
+   def: humongous  (kanakila alavu data storing)
    Non relational database
   MongoDB is a cross-platform,
   document oriented database that provides,
@@ -38,20 +48,67 @@ DOCUMENT:
       The document is created using field-value pairs or key-value pairs and the value of the field can be of any BSON type. 
       The maximum size of the BSON document is 16MB.
       A single document may contain duplicate fields.
-stores all the information of a computer in a single document called Computer and not in distinct relational structures like CPU, RAM, Hard disk, etc.
+     stores all the information of a computer in a single document called Computer and not in distinct relational structures like CPU, RAM, Hard disk, etc.
 
 
 Where do we use MongoDB?
 
        Big Data
+       flexibility
        Unstable Schema:Adding a new column in RDBMS is hard whereas MongoDB is schema-less. Adding a new field does not effect old documents and will be very easy.
        
 CURSOR:
 
    cursor is a pointer, and using this pointer we can access the document
+
+DOCUMENT -ORIENTED DATABASE:
+    store data as document form 
+    
+FEATURES:
+     
+     *)support ad-hoc queries
+     *)indexing
+     *)replication
+     *)high performance
    
-   
- --------**** mongodb collection are stored as document json   **----------------------
+--------**** mongodb collection are stored as document json   **----------------------
           json is a sturcture of storing value      --- key value pair   mysql we create multiple table and join but mongo we can create document inside single json collection 
           after finishning json type and it stored as bson because binary datas is faster to accesss in computer
           
+ADVANTAGE OVER RDBMS:
+      
+         100 times faster then rdbms
+         Schema less − MongoDB is a document database in which one collection holds different documents. ...
+         No complex joins.
+         one collection hold different documents
+         used for internal memory for storing
+SCHEMA:
+       A database schema contains schema objects that may include tables, fields, packages, views, relationships, primary key, foreign key,
+       In actual, the data is physically stored in files that may be in unstructured form, but to retrieve it and use it, we need to put it in a structured form. To do this, a database schema is used. It provides knowledge about how the data is organized in a database and how it is associated with other data.
+       The schema does not physically contain the data itself; instead, it gives information about the shape of data and how it can be related to other tables or models.
+
+      Types of Database Schema
+          The database schema is divided into three types, which are:
+             Logical Schema
+             Physical Schema
+             View Schema
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
