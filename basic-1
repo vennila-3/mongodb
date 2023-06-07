@@ -13,17 +13,22 @@ sql :
    They store related data in separate tables.
    When data is needed, it is queried from multiple tables to join the data back together.
    it follow normalization  ---- it means datas are split into smalll smalll because work efficientn --  split and join  it also called schema.
+   database---->table------>column
 MONGDOB:
   it isa no sql  database ---sql opposite.
   MongoDB is a document database which is often referred to as a non-relational database. 
   This does not mean that relational data cannot be stored in document databases.
   It means that relational data is stored differently.A better way to refer to it is as a non-tabular database.
-  schema is not neccesay
+  follows normalization ---> split the whole data into small small datas which is used to perform fast
+  schema is not neccesay-------->spliting work split tables are call schema  keys(primary key)
+  database------>collection------->document
   
 MONGODB:
-   def: humongous  (kanakila alavu data storing)
-   Non relational database
+  def: humongous  (kanakila alavu data storing)
+  it is indepedence  doesnot follow any schema like primary key
+  Non relational database
   MongoDB is a cross-platform,
+  there is no need of normalization ,schema
   document oriented database that provides,
   high performance, 
   It does not support join operation.
@@ -43,8 +48,11 @@ COLLECTION:
        Collections are just like tables in relational databases, they also store data, but in the form of documents.
        A single database is allowed to store multiple collections.  
 DOCUMENT:
+     it is an json document
       like columns in the relation database
-      In MongoDB, the data records are stored as BSON documents. Here, BSON stands for binary representation of JSON documents,although BSON contains more data types as compared to JSON. 
+      key value pair
+      In MongoDB, the data records are stored as BSON documents. Here, BSON stands for binary representation of JSON documents,although BSON contains more data types as compared to JSON.
+            binary data conversion is used for fast data transfer storing
       The document is created using field-value pairs or key-value pairs and the value of the field can be of any BSON type. 
       The maximum size of the BSON document is 16MB.
       A single document may contain duplicate fields.
